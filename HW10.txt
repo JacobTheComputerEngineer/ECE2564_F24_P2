@@ -1,0 +1,4 @@
+HW10
+
+When the game starts, an obstacle spawns every two seconds?
+Now we need to implement obstacles. What are obstacles, if not large rectangles of various sizes? They are large rectangles of various sizes, exactly. How to create them? Make a new struct just for them. Give it some data members. \nSome helpful members could be width, height, a bool to check for collisions, maybe a few others. It mentions a spawn rate of 2 seconds, so perhaps use a timer somewhere to determine when the obstacle becomes active. \nGetting started and figuring out what to do is the hardest part. Have your timers, plan out where you want to code this and the layout of how you want to do it. Remember to keep functions small and distinct.

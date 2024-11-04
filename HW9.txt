@@ -1,0 +1,61 @@
+HW9
+
+This code is empty, how do I start?
+There are a couple of things you need to do to get started. The first thing you should notice is that the HAL folder is missing. Go ahead and copy what you need from previous HW/proj/examples. \nAnother starting point is to get an idea of the FSM you will need for this project. I recommend looking at the golden solution thoroughly to get a feel for what is needed for this game.
+
+How should I format my code?
+There are many many many many many ways to code this project, you just need to find one for you. Try to make things less busy. \nStructure your functions in a way that they only do one task. \nLayout your tasks into small steps, and each step could represent a function. \nSmall, readable, and modular functions are the best practice.
+
+Getting started coding?
+Copy over a HAL folder, perhaps from guessTheColor or the timer32 example. Update it as necessary to fit your needs (add graphics, timers, update header file connections in mainn etc.). \nOnce you have all the files you need, I recommend creating a separate file for your application. This will leave your main file nice and pretty, and all of the related functions are together in a separate file. \In your app.h, create your structs, enums, defines, and function declarations. The app.c will have the function definitions. Follow the format of previous codes you've been over. \n\nEverything starts with the FSM in the app struct, start there.
+
+How can I improve from the last project?
+If your last project had code all over the place, a new project is the best place to start. Before you immediately get into coding, plan what you want for the code to do. Keep it efficient. It is better to think ahead than to backtrack and stop all of your progress. \nFor instance, if you had problems with code running many times, try making some flags to show when to do something. Turn them on when you want to do something, and turn them off when you don't want them to do something.
+
+A splash screen is displayed?
+A title screen, welcome screen, whatever you would like to call it: it is just something to welcome the player to the game. You are free to do whatever: display just the name in text, draw it with lines, even create a custom image. Text is the easy way out, lines will take a lot of trial and error, and there is help for the custom image in the external site and the guessTheColor. Make sure you initialize the gfx and have the required HAL files for it.
+
+After 3 seconds, the splash screen disappears, and the main menu screen is shown?
+This will be done using a Timer32. If not in your HAL already, copy the files over and update your hal struct. Make sure you initialize your timer, as well as run InitSystemTiming. \nThe functions available in the Timer.h and Timer.c, as well as the example should provide enough guidance on how to set up and use a timer. Think about when you want to start the timer, as well as what you want it to do when it expires.
+
+The menu screen has at least the default three options: Play Game, High Scores, and How to Play?
+This is just a menu. Print at least those three options to the menu screen. It would be nice if you also notated somehow that this was the menu screen.
+
+The joystick is debounced. Pressing up and down on the joystick allows the cursor to move up and down only one time per joystick tap?
+Now we are using the joystick and creating a cursor. Create joystick hal files from the joystick example. These are a great starting point. \nOnce attached, it would be helpful if you have some functions and datamembers somewhere to determine the direction of the joystick. \nOnce you know what the joystick is doing, lets do something with it. Inside the menu state, have some logic based on where the cursor currently is and how the direction of the joystick affects it. \nRemember to add debouncing for this. You want the cursor to move only on the first loop when the joystick is pressed. Sounds familiar to some flags in earlier explanations/projects/maybe even your own code.
+
+Pressing the joystick button on How to Play option brings the user to How to Play, and pressing the joystick button on the instructions screen brings the player back to the main menu?
+Compared to the previous task, this is very easy. The button may already be initialized for you! Just go ahead and modify the FSM based on the JSB.
+
+Pressing the joystick button on the High Scores screen brings the player to see the top three scores of the game. Pressing the joystick button on this screen brings the player back to the main menu?
+There are two parts to this task, let's do the separately. \nTo return to the main menu and move here, press JSB; easy enough. \nTo implement high scores, you should be able to keep track of them. Put some things in the app struct and create some logic (and maybe a function) to print them. You can't directly print the score, so use some string functions from the beginning of the class to your advantage.
+
+Pressing the joystick button on the Play Game option opens a new game instance for the user to play?
+Same as before, pressing JSB changes the state of the FSM. It is worded weirdly, but that is all this means.
+
+When the game starts, a player character should be displayed, as well as borders on the top and bottom. The score and lives are also displayed?
+The character does not have to be any more than a block or a circle. You could do extra, but not much is needed. \nDraw lines to notate the borders (make a function for this). The character should not go outside of the borders, design with this is mind. \nIf you have any questions on positioning, refer to the golden.
+
+The initial score is zero, and the initial number of lives is three?
+Easy peasy, just declare something in the app struct and initialize it in the app construct function.
+
+The player can move left and right using the Joystick?
+This is where the fun begins. You have the up and down motion completed from the menu, now do the left and right. Arguably this is easier because it is not debounced. It would help if you had variables that kept note of the x and y of the character, and manipulate those based on the joystick.
+
+Upon pressing BB1, the player jumps for a period of time. The player also falls if not currently jumping?
+This seems scarier than it is. If button, move up for a bit. If no button, move down. \nThere are multiple ways to implement the \"for a bit\". You could use timers, counters, maybe even a third thing if you know of another way.
+
+The player cannot move offscreen or collide with the borders?
+This is much like the joke plane code: \"if(plane.goingToCrash) dont;\" \nIf the move would make the play move out of bounds, don't do the move. 
+
+The character is moving WAY TOO FAST???
+Remember that the MCU is running all of this code many many times a second. If you want it to move less, try adding a limiter to your code. Maybe use a timer or a counter.
+
+The character is moving way too slow?
+Remember that the MCU is running all of this code many times a second. Perhaps there is too much code being ran every iteration. How would you lower the amount of operations per loop. Perhaps maybe not everything needs to be ran every time.
+
+The screen is flickering? Kinda flickering?
+The drawing process of the gfx is relatively slow. If this is happening to something in the same spot, you're drawing it every iteration. Don't do that, only redraw when a change happens.
+
+The character moving is flickery and does not look great.
+Look at how (in code) you are moving the character. Are you erasing the whole screen? The whole character? Try erasing something smaller than the whole character, and maybe draw something smaller than the whole character.
